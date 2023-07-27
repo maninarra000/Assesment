@@ -26,3 +26,29 @@ resource "aws_security_group" "ssh" {
 output "instance_public_ip" {
   value = aws_instance.myec2.public_ip
 }
+
+
+
+# --------------------- restrict certain ip address using below code -----------------------------
+
+
+
+resource "aws_network_acl_rule" "deny_ssh" {
+  network_acl_id = "acl-02a0206f1d9fd8c22" 
+  rule_number  = 100  
+  rule_action  = "deny"
+  egress       = false  
+  cidr_block   = "30.50.0.0/18"
+  protocol     = "6" 
+  from_port    = 22
+  to_port      = 22
+}
+
+
+
+
+
+
+
+
+
