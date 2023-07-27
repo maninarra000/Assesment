@@ -2,3 +2,11 @@ aws ec2 create-key-pair --key-name mani --query 'KeyMaterial' --ooutput text > m
 aws ec2 create-security-group --group-name MySecurityGroup --description "My security group"
 aws ec2 authorize-security-group-ingress --group-name MySecurityGroup --protocol tcp --port 22 --cidr 0.0.0.0/0
 awsec2 run-instances --image-id ami-************* --count 1 --instance-type t2.micro --key-name mani --security-groups MySecurityGroup
+
+
+
+#--------------------------- By using Below commands we can restrict ip Address----------------------
+
+aws ec2 describe-network-acls --query "NetworkAcls[?VpcId=='vpc-076dd3306cd4d7610'] | [0].NetworkAclId"
+aws ec2 create-network-acl-entry --network-acl-id acl-02a0206f1d9fd8c22 --ingress --rule-number 90 \ --protocol 6 --rule-action deny --cidr-block 172.31.0.0/16 --port-range From=22,To=22
+aws ec2 describe-network-acls --network-acl-ids acl-02a0206f1d9fd8c22
