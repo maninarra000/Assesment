@@ -7,3 +7,6 @@ Select vpc
 Add Storage
 Configure Security Group
 Launch instance
+
+
+# we can use Network ACL to Restrict certain IP's to access the instance
