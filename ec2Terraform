@@ -1,0 +1,28 @@
+provider "aws" {
+    region = "ap-south-1"
+    access_key = "************LGSOV3"
+    secret_key = "*********************L45aDJ"
+}
+
+resource "aws_instance" "myec2" {
+    ami = "ami-0f5ee92e2d63afc18"
+    instance_type = "t2.micro"
+
+  key_name      = "Mumbai-kp-1" 
+  subnet_id     = "subnet-0095daa147ab97416" 
+  vpc_security_group_ids = ["sg-0901047463501190a"]
+  user_data     = <<-EOT
+                  EOT
+}
+resource "aws_security_group" "ssh" {
+  name_prefix = "allow-ssh"
+    ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+output "instance_public_ip" {
+  value = aws_instance.myec2.public_ip
+}
