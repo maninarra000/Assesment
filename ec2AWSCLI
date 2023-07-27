@@ -1,0 +1,4 @@
+aws ec2 create-key-pair --key-name mani --query 'KeyMaterial' --ooutput text > mani.pem
+aws ec2 create-security-group --group-name MySecurityGroup --description "My security group"
+aws ec2 authorize-security-group-ingress --group-name MySecurityGroup --protocol tcp --port 22 --cidr 0.0.0.0/0
+awsec2 run-instances --image-id ami-************* --count 1 --instance-type t2.micro --key-name mani --security-groups MySecurityGroup
