@@ -1,0 +1,25 @@
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0f5ee92e2d63afc18
+      InstanceType: t2.micro 
+      SecurityGroups:
+        - Ref: SSHSecurityGroup
+      KeyName: Mumbai-kp-1
+      UserData:
+        Fn::Base64: !Sub |
+    SSHSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+Outputs:
+  InstanceIP:
+    Description: Public IP address of the EC2 instance
+    Value: !GetAtt MyEC2Instance.PublicIp
